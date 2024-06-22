@@ -12,38 +12,59 @@
 
 #Importo il modulo random
 import random
+import pandas as pd
+
+def nicknameCheck():
+    while True:
+        nickname = input("Inserisci il tuo nickname (solo alfanumerico): ")
+        if nickname.isalnum():
+            return nickname
+        else:
+            print("Riprova! Caratteri non validi!")
 
 def gioco():
-    pareggio = 0
-    vincita = 0
-    perdita = 0
-    lista = ["sasso", "carta", "forbice"]
+    pareggi = 0
+    vittorie = 0
+    sconfitte = 0
+    opzioni = ["sasso", "carta", "forbice"]
     
+    nickname = nicknameCheck()
+    
+        
     while True:
         
-        sceltaIA = random.choice(lista)
+        sceltaIA = random.choice(opzioni)
         scelta = input("Scegli tra 'sasso', 'carta', 'forbice' o fine per terminare: ")
         print(f"{scelta =}") #print di debug
         print(f"{sceltaIA =}") #print di debug
-        if scelta in lista:
+        if scelta in opzioni:
             if scelta == sceltaIA:
                 risultato = "Pareggio"
-                pareggio += 1
-                print(f"{risultato =} -- Hai pareggiato fin ora {pareggio} volte") # PRINT DI DEBUG PER IL PAREGGIO
+                pareggi += 1
+                print(f"{risultato =} -- Hai pareggiato fin ora {pareggi} volte") # PRINT DI DEBUG PER IL PAREGGIO
+                
                 
             elif scelta == "sasso" and sceltaIA == "forbice" or scelta == "carta" and sceltaIA == "sasso" or scelta == "forbice" and sceltaIA == "carta":
-                risultato = "Vincita"
-                vincita += 1
-                print(f"{risultato =} -- Hai vinto fin ora {vincita} volte")
+                risultato = "Vittoria"
+                vittorie += 1
+                print(f"{risultato =} -- Hai vinto fin ora {vittorie} volte")
+                
             elif scelta == "fine":
                 break
                 
             else:
-                risultato = "Perdita"
-                perdita +=1
-                print(f"{risultato =} -- Hai perso fin ora {perdita} volte")
+                risultato = "Sconfitta"
+                sconfitte +=1
+                print(f"{risultato =} -- Hai perso fin ora {sconfitte} volte")
+                
         elif scelta == "fine":
-            print(f"I risultati finali sono:\n{vincita =}, {pareggio =}, {perdita =}")
+            print(f"I risultati finali sono:\n{vittorie =}, {pareggi =}, {sconfitte =}")
+            
+            dictRisultati = {"Nickname": [nickname],"Vittorie": [vittorie], "Pareggi": [pareggi], "Sconfitte": [sconfitte]}
+            #Creo il dataframe
+            df = pd.DataFrame(data = dictRisultati)
+            print(df)
+            
             break
                 
         else:
