@@ -13,6 +13,9 @@
 #Importo il modulo random
 import random
 import pandas as pd
+import datetime
+
+
 
 def nicknameCheck():
     while True:
@@ -65,14 +68,21 @@ def gioco():
             df = pd.DataFrame(data = dictRisultati)
             print(df)
             
+            # Accedo alla data e all'ora corrente (cioè creo un oggetto datetime)
+            dataCorrente = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M')
+            
+            df.to_csv(path_or_buf = dataCorrente + ".csv",
+                  index = True,
+                  columns = ['Nickname', 'Vittorie', "Pareggi", "Sconfitte"]
+                  )
+                    
+            
+            
             break
                 
         else:
             print("Scegli una delle opzioni possibili!")    
-         
            
-                
-            
 gioco()
 # BONUS: registra i dati della partita su un file di testo, decidendo quale sia il formato migliore
 
