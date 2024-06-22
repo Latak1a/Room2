@@ -17,27 +17,34 @@ def gioco():
     pareggio = 0
     vincita = 0
     perdita = 0
+    lista = ["sasso", "carta", "forbice"]
+    
     while True:
         
-        sceltaIA = random.choice(["sasso", "carta", "forbice"])
-        scelta = input("Scegli tra 'sasso', 'carta', 'forbice': ")
-        print(f"{scelta =}")
-        print(f"{sceltaIA =}")
-        if scelta in ["sasso", "carta", "forbice"]:
+        sceltaIA = random.choice(lista)
+        scelta = input("Scegli tra 'sasso', 'carta', 'forbice' o fine per terminare: ")
+        print(f"{scelta =}") #print di debug
+        print(f"{sceltaIA =}") #print di debug
+        if scelta in lista:
             if scelta == sceltaIA:
                 risultato = "Pareggio"
                 pareggio += 1
-                print(f"{risultato =} -- Hai pareggiato fin ora {pareggio} volte")
+                print(f"{risultato =} -- Hai pareggiato fin ora {pareggio} volte") # PRINT DI DEBUG PER IL PAREGGIO
                 
             elif scelta == "sasso" and sceltaIA == "forbice" or scelta == "carta" and sceltaIA == "sasso" or scelta == "forbice" and sceltaIA == "carta":
                 risultato = "Vincita"
                 vincita += 1
                 print(f"{risultato =} -- Hai vinto fin ora {vincita} volte")
+            elif scelta == "fine":
+                break
                 
             else:
                 risultato = "Perdita"
                 perdita +=1
                 print(f"{risultato =} -- Hai perso fin ora {perdita} volte")
+        elif scelta == "fine":
+            print(f"I risultati finali sono:\n{vincita =}, {pareggio =}, {perdita =}")
+            break
                 
         else:
             print("Scegli una delle opzioni possibili!")    
