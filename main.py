@@ -33,13 +33,14 @@ def gioco():
     
     nickname = nicknameCheck()
     
-        
+    #Ciclo while che gestisce la partita e salva la partita in un DataFrame che poi salva su un file csv
     while True:
         
         sceltaIA = random.choice(opzioni)
         scelta = input("Scegli tra 'sasso', 'carta', 'forbice' o fine per terminare: ")
         print(f"{scelta =}") #print di debug
         print(f"{sceltaIA =}") #print di debug
+        
         if scelta in opzioni:
             if scelta == sceltaIA:
                 risultato = "Pareggio"
@@ -50,7 +51,7 @@ def gioco():
             elif scelta == "sasso" and sceltaIA == "forbice" or scelta == "carta" and sceltaIA == "sasso" or scelta == "forbice" and sceltaIA == "carta":
                 risultato = "Vittoria"
                 vittorie += 1
-                print(f"{risultato =} -- Hai vinto fin ora {vittorie} volte")
+                print(f"{risultato =} -- Hai vinto fin ora {vittorie} volte")# PRINT DI DEBUG PER LE VITTORIE
                 
             elif scelta == "fine":
                 break
@@ -58,31 +59,51 @@ def gioco():
             else:
                 risultato = "Sconfitta"
                 sconfitte +=1
-                print(f"{risultato =} -- Hai perso fin ora {sconfitte} volte")
+                print(f"{risultato =} -- Hai perso fin ora {sconfitte} volte")# PRINT DI DEBUG PER LE SCONFITTE
                 
         elif scelta == "fine":
             print(f"I risultati finali sono:\n{vittorie =}, {pareggi =}, {sconfitte =}")
             
+            #Creo un dizionario per la creazione di un DataFrame
             dictRisultati = {"Nickname": [nickname],"Vittorie": [vittorie], "Pareggi": [pareggi], "Sconfitte": [sconfitte]}
+            
             #Creo il dataframe
             df = pd.DataFrame(data = dictRisultati)
             print(df)
             
             # Accedo alla data e all'ora corrente (cioè creo un oggetto datetime)
-            dataCorrente = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M')
+            dataCorrente = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
             
+            #Trasformo il DataFrame in un file csv con la data come <nome_file>
             df.to_csv(path_or_buf = dataCorrente + ".csv",
                   index = True,
-                  columns = ['Nickname', 'Vittorie', "Pareggi", "Sconfitte"]
-                  )
-                    
+                  columns = ['Nickname', 'Vittorie', "Pareggi", "Sconfitte"])
+            with open("partite.txt", "a+") as file:
+                file.write(dataCorrente + ".csv\n")
             
-            
-            break
-                
+            break      
         else:
-            print("Scegli una delle opzioni possibili!")    
+            print("Scegli una delle opzioni possibili!") 
+      
+
 gioco()
+
+
+def statistiche():
+    with open("partite.txt", "r") as file:
+        print(f"The name of the file is: '{file.name}'")
+        # Leggere riga per riga il contenuto del file
+        for idx, line in enumerate(file):
+            print(f"line {idx}: {line}")
+            archive_df = pd.read_csv(filepath_or_buffer = line[0:-1], sep = ',', header = 0)   
+            print(archive_df) 
+   
+
+statistiche()
+
+    
+
+
 # BONUS: registra i dati della partita su un file di testo, decidendo quale sia il formato migliore
 
 # BONUS 2: prevedi e testa una funzione per poter leggere da un file di testo i dati di una partita e visualizzarli
