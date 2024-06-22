@@ -82,7 +82,6 @@ def gioco():
                 
         else:
             print("Scegli una delle opzioni possibili!")    
-           
 gioco()
 # BONUS: registra i dati della partita su un file di testo, decidendo quale sia il formato migliore
 
