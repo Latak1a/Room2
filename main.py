@@ -70,7 +70,6 @@ def gioco():
             #Creo il dataframe
             df = pd.DataFrame(data = dictRisultati)
             print(df)
-            
             # Accedo alla data e all'ora corrente (cioè creo un oggetto datetime)
             dataCorrente = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
             
@@ -115,3 +114,4 @@ statistiche()
 # BONUS 4: prevedi una funzione per poter accedere a tutti i dati delle partite salvate e fare una statistica dei giocatori.
 #          Prevedi quindi di chiedere il nickname del giocatore prima di avviare la partita. Il nickname dovrà comparire 
 #          tra i dati del .txt 
+#PROVA COMMIT
