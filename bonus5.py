@@ -10,22 +10,11 @@ nickname = ["a", "b", "c", "d", "e","f","g","h","i","l","m","n","o","p","q","r",
 
 #variabile che crea con la list comprehension
 risultati = [[random.choice(nickname),  random.randint(0,10), random.randint(0,10), random.randint(0,10), 0] for k in range(20)]
-#for i in range(3)
-# for giocatore in righe:
-#                 if giocatore[1] > primoPosto[1]:
-#                     primoPosto = giocatore
-#                 elif giocatore[1] == primoPosto[1]:
-#                     if giocatore[3] < primoPosto[3]:
-#                         primoPosto = giocatore
-#                     elif giocatore[3] == primoPosto[3]:
-#                         if giocatore[2] < primoPosto[2]:
-#                             primoPosto = giocatore
-    
-#['t', 1, 7, 9]
+
 for elemento in risultati:
     elemento[4] = elemento[1]*3 + elemento[2] + (elemento[1]-elemento[3]) 
   
-max = 0    
+   
 podio = [[0, 0],[0, 0],[0, 0]]
 for index, elemento in enumerate(risultati):
     

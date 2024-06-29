@@ -14,6 +14,7 @@
 import random
 import pandas as pd
 import datetime
+import os
 
 
 
@@ -64,21 +65,35 @@ def gioco():
         elif scelta == "fine":
             print(f"I risultati finali sono:\n{vittorie =}, {pareggi =}, {sconfitte =}")
             
-            #Creo un dizionario per la creazione di un DataFrame
-            dictRisultati = {"Nickname": [nickname],"Vittorie": [vittorie], "Pareggi": [pareggi], "Sconfitte": [sconfitte]}
-            
-            #Creo il dataframe
-            df = pd.DataFrame(data = dictRisultati)
-            print(df)
             # Accedo alla data e all'ora corrente (cioè creo un oggetto datetime)
             dataCorrente = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
             
-            #Trasformo il DataFrame in un file csv con la data come <nome_file>
-            df.to_csv(path_or_buf = dataCorrente + ".csv",
-                  index = True,
-                  columns = ['Nickname', 'Vittorie', "Pareggi", "Sconfitte"])
-            with open("partite.txt", "a+") as file:
-                file.write(dataCorrente + ".csv\n")
+            #Creo un dizionario per la creazione di un DataFrame
+            dictRisultati = {"Data": [dataCorrente],"Vittorie": [vittorie], "Pareggi": [pareggi], "Sconfitte": [sconfitte]}
+            
+            #Creo il dataframe
+            df = pd.DataFrame(data = dictRisultati)
+            # print(df)
+            
+            # Se non esiste la cartella 'Statistiche' la creo
+            if not os.path.isdir('Statistiche'):
+                os.mkdir('Statistiche')
+                
+            if not os.path.isfile('Statistiche/'+ nickname + ".csv"):
+ 
+                #Trasformo il DataFrame in un file csv con la data come <nome_file>
+                df.to_csv(path_or_buf = "Statistiche/" + nickname + ".csv",
+                    index = True,
+                    columns = ["Data", 'Vittorie', "Pareggi", "Sconfitte"])
+            else:
+                df1 = pd.read_csv('Statistiche/' + nickname + ".csv")
+                # print(f"Primo DF1: {df1 =}")
+                df1 = pd.concat([df, df1])
+                # print(f"Secondo DF1: {df1 =}")
+                
+                df1.to_csv(path_or_buf = "Statistiche/" + nickname + ".csv",
+                    index = True,
+                    columns = ["Data", 'Vittorie', "Pareggi", "Sconfitte"])                   
             
             break      
         else:
@@ -87,18 +102,15 @@ def gioco():
 
 gioco()
 
-
+#legge ogni file presente in dir /statistiche
+#per ogni file sommare il totale della colonna vittorie, della colonna pareggi e della colonna sconfitte
+#aggiungo questi dati al file statistiche_Giocatori
 def statistiche():
-    with open("partite.txt", "r") as file:
-        print(f"The name of the file is: '{file.name}'")
-        # Leggere riga per riga il contenuto del file
-        for idx, line in enumerate(file):
-            print(f"line {idx}: {line}")
-            archive_df = pd.read_csv(filepath_or_buffer = line[0:-1], sep = ',', header = 0)   
-            print(archive_df) 
+    
+    
    
 
-statistiche()
+# statistiche()
 
     
 
