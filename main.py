@@ -16,6 +16,49 @@ import pandas as pd
 import datetime
 import os
 
+def statistiche(nickname):
+    vittorie = 0
+    pareggi = 0
+    sconfitte = 0
+    score = 0
+ #legge ogni file presente in dir /statistiche   
+    for element in os.listdir("./Statistiche/"):
+        if element != "StatisticheGiocatore.csv":
+            df1 = pd.read_csv("./Statistiche/" + element)
+            #per ogni file sommare il totale della colonna vittorie, della colonna pareggi e della colonna sconfitte
+            for i in range(len(df1)):
+                vittorie += df1.iloc[i]["Vittorie"]
+                pareggi += df1.iloc[i]["Pareggi"]
+                sconfitte += df1.iloc[i]["Sconfitte"]
+                score += df1.iloc[i]["Score"]
+            
+            dictGiocatori = {"Nickname": nickname,"Vittorie": [vittorie], "Pareggi": [pareggi], "Sconfitte": [sconfitte], "Score": [score]}
+                        
+            #Creo il dataframe
+            df2 = pd.DataFrame(data = dictGiocatori)
+                        
+            if not os.path.isdir('Statistiche'):
+                os.mkdir('Statistiche')
+                df3 = pd.read_csv("ROOM2/Statistiche/StatisticheGiocatore.csv") 
+                df4 = pd.concat([df2, df3])
+                df4.to_csv(path_or_buf = "ROOM2/Statistiche/StatisticheGiocatore.csv",
+                            index = True,
+                            columns = ["Data", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
+            else:
+                if not os.path.isfile("ROOM2/Statistiche/StatisticheGiocatore.csv"):
+                    df3 = pd.read_csv("ROOM2/Statistiche/StatisticheGiocatore.csv") 
+                    df4 = pd.concat([df2, df3])
+                    df4.to_csv(path_or_buf = "ROOM2/Statistiche/StatisticheGiocatore.csv",
+                               index = True,
+                               columns = ["Data", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
+                
+                    
+                
+            
+                
+
+  
+
 
 
 def nicknameCheck():
@@ -61,6 +104,7 @@ def gioco():
                 risultato = "Sconfitta"
                 sconfitte +=1
                 print(f"{risultato =} -- Hai perso fin ora {sconfitte} volte")# PRINT DI DEBUG PER LE SCONFITTE
+            
                 
         elif scelta == "fine":
             print(f"I risultati finali sono:\n{vittorie =}, {pareggi =}, {sconfitte =}")
@@ -68,8 +112,11 @@ def gioco():
             # Accedo alla data e all'ora corrente (cioè creo un oggetto datetime)
             dataCorrente = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
             
+            #Creo lo score
+            score = vittorie*3 + pareggi + (vittorie-sconfitte)
+            
             #Creo un dizionario per la creazione di un DataFrame
-            dictRisultati = {"Data": [dataCorrente],"Vittorie": [vittorie], "Pareggi": [pareggi], "Sconfitte": [sconfitte]}
+            dictRisultati = {"Data": [dataCorrente],"Vittorie": [vittorie], "Pareggi": [pareggi], "Sconfitte": [sconfitte], "Score": [score]}
             
             #Creo il dataframe
             df = pd.DataFrame(data = dictRisultati)
@@ -84,7 +131,7 @@ def gioco():
                 #Trasformo il DataFrame in un file csv con la data come <nome_file>
                 df.to_csv(path_or_buf = "Statistiche/" + nickname + ".csv",
                     index = True,
-                    columns = ["Data", 'Vittorie', "Pareggi", "Sconfitte"])
+                    columns = ["Data", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
             else:
                 df1 = pd.read_csv('Statistiche/' + nickname + ".csv")
                 # print(f"Primo DF1: {df1 =}")
@@ -93,8 +140,8 @@ def gioco():
                 
                 df1.to_csv(path_or_buf = "Statistiche/" + nickname + ".csv",
                     index = True,
-                    columns = ["Data", 'Vittorie', "Pareggi", "Sconfitte"])                   
-            
+                    columns = ["Data", 'Vittorie', "Pareggi", "Sconfitte", "Score"])                   
+            statistiche(nickname)
             break      
         else:
             print("Scegli una delle opzioni possibili!") 
@@ -102,15 +149,14 @@ def gioco():
 
 gioco()
 
-#legge ogni file presente in dir /statistiche
-#per ogni file sommare il totale della colonna vittorie, della colonna pareggi e della colonna sconfitte
-#aggiungo questi dati al file statistiche_Giocatori
-def statistiche():
-    
-    
-   
 
-# statistiche()
+
+#leggo il file Statistiche giocatori, se in una delle righe è presente il nickname allora sostituisco la riga
+#se non esiste creo la riga, poi metto in ordine di punto??
+
+    
+
+
 
     
 
