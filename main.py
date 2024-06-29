@@ -16,7 +16,8 @@ import pandas as pd
 import datetime
 import os
 
-def statistiche(nickname):
+def statistiche():
+    
     vittorie = 0
     pareggi = 0
     sconfitte = 0
@@ -24,9 +25,12 @@ def statistiche(nickname):
  #legge ogni file presente in dir /statistiche   
     for element in os.listdir("./Statistiche/"):
         if element != "StatisticheGiocatore.csv":
+            nickname = element.strip(".csv")
             df1 = pd.read_csv("./Statistiche/" + element)
+            
             #per ogni file sommare il totale della colonna vittorie, della colonna pareggi e della colonna sconfitte
             for i in range(len(df1)):
+                
                 vittorie += df1.iloc[i]["Vittorie"]
                 pareggi += df1.iloc[i]["Pareggi"]
                 sconfitte += df1.iloc[i]["Sconfitte"]
@@ -39,27 +43,29 @@ def statistiche(nickname):
                         
             if not os.path.isdir('Statistiche'):
                 os.mkdir('Statistiche')
-                df3 = pd.read_csv("ROOM2/Statistiche/StatisticheGiocatore.csv") 
-                df4 = pd.concat([df2, df3])
-                df4.to_csv(path_or_buf = "ROOM2/Statistiche/StatisticheGiocatore.csv",
-                            index = True,
-                            columns = ["Data", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
+                
+            
+            if not os.path.isfile("./Statistiche/StatisticheGiocatore.csv"):
+                # df3 = pd.read_csv("./Statistiche/StatisticheGiocatore.csv") 
+                # df3 = pd.concat([df2, df3])
+                df2.to_csv(path_or_buf = "./Statistiche/StatisticheGiocatore.csv",
+                    index = False,
+                    columns = ["Nickname", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
             else:
-                if not os.path.isfile("ROOM2/Statistiche/StatisticheGiocatore.csv"):
-                    df3 = pd.read_csv("ROOM2/Statistiche/StatisticheGiocatore.csv") 
-                    df4 = pd.concat([df2, df3])
-                    df4.to_csv(path_or_buf = "ROOM2/Statistiche/StatisticheGiocatore.csv",
-                               index = True,
-                               columns = ["Data", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
+                df3 = pd.read_csv("./Statistiche/StatisticheGiocatore.csv") 
+                
+                df3 = pd.concat([df2, df3])
+                #Ordino il dataframe
+                df3 = df3.sort_values(by="Score", ascending = False)
+                
+                
+                df3.to_csv(path_or_buf = "./Statistiche/StatisticheGiocatore.csv",
+                    index = False,
+                    columns = ["Nickname", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
+                
                 
                     
                 
-            
-                
-
-  
-
-
 
 def nicknameCheck():
     while True:
@@ -130,7 +136,7 @@ def gioco():
  
                 #Trasformo il DataFrame in un file csv con la data come <nome_file>
                 df.to_csv(path_or_buf = "Statistiche/" + nickname + ".csv",
-                    index = True,
+                    index = False,
                     columns = ["Data", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
             else:
                 df1 = pd.read_csv('Statistiche/' + nickname + ".csv")
@@ -139,9 +145,9 @@ def gioco():
                 # print(f"Secondo DF1: {df1 =}")
                 
                 df1.to_csv(path_or_buf = "Statistiche/" + nickname + ".csv",
-                    index = True,
+                    index = False,
                     columns = ["Data", 'Vittorie', "Pareggi", "Sconfitte", "Score"])                   
-            statistiche(nickname)
+            statistiche()
             break      
         else:
             print("Scegli una delle opzioni possibili!") 
