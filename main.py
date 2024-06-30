@@ -43,19 +43,8 @@ def statistiche():
             df2 = pd.DataFrame(data = dictGiocatori)    
             df3 = pd.concat([df2, df3])
             
-    if not os.path.isfile("./Statistiche/StatisticheGiocatore.csv"):
-        df3.to_csv(path_or_buf = "./Statistiche/StatisticheGiocatore.csv", 
-                    index = False, 
-                    columns = ["Nickname", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
-        print(f"{df3 =}")
-    else:
-        #os.remove("./Statistiche/StatisticheGiocatore.csv")
-        
-        
-        df3.to_csv(path_or_buf = "./Statistiche/StatisticheGiocatore.csv",
-            index = False,
-            columns = ["Nickname", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
-        print(f"{df3 =}")
+        print(df2)
+        print(df3)
 
 
 def nicknameCheck():
