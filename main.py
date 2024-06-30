@@ -16,6 +16,8 @@ import pandas as pd
 import datetime
 import os
 
+# MAIN
+
 def statistiche():
     
     vittorie = 0
@@ -57,7 +59,6 @@ def statistiche():
                 df3 = pd.concat([df2, df3])
                 #Ordino il dataframe
                 df3 = df3.sort_values(by="Score", ascending = False)
-                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
                 
                 
                 df3.to_csv(path_or_buf = "./Statistiche/StatisticheGiocatore.csv",
