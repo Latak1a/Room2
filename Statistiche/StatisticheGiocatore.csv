@@ -1,5 +1,11 @@
 Nickname,Vittorie,Pareggi,Sconfitte,Score
-Anto,3,0,0,12
-Michele,0,1,1,0
-Michele,0,1,1,0
-Ale,2,1,0,9
+UNO,0,1,0,1
+TRE,0,0,1,-1
+SETTE,1,0,0,4
+SEI,0,2,0,2
+QUATTRO,0,3,0,3
+OTTO,1,0,0,4
+NOVE,0,1,0,1
+DUE,0,0,1,-1
+DIECI,1,1,0,5
+CINQUE,1,0,1,3

@@ -15,13 +15,14 @@ import random
 import pandas as pd
 import datetime
 import os
+import bonus5
 
 # MAIN
 
 def statistiche():
     df3 = pd.DataFrame()   
     #legge ogni file presente in dir /statistiche
-    for element in os.listdir("./Statistiche/"):
+    for element in os.listdir("./Giocatori/"):
         vittorie = 0
         pareggi = 0
         sconfitte = 0
@@ -30,7 +31,7 @@ def statistiche():
         if element != "StatisticheGiocatore.csv":
             
             nickname = element.strip(".csv")  
-            df1 = pd.read_csv("./Statistiche/" + element)
+            df1 = pd.read_csv("./Giocatori/" + element)
            
             for i in range(len(df1)):
             
@@ -39,10 +40,15 @@ def statistiche():
                 sconfitte += df1.iloc[i]["Sconfitte"]
                 score += df1.iloc[i]["Score"]
             dictGiocatori = {"Nickname": nickname,"Vittorie": [vittorie], "Pareggi": [pareggi], "Sconfitte": [sconfitte], "Score":  [score]}
-            print(dictGiocatori)
+            
         df2 = pd.DataFrame(data = dictGiocatori)    
         df3 = pd.concat([df2, df3])
-            
+        
+        
+        
+        if not os.path.isdir("./Statistiche"):
+            os.mkdir("./Statistiche")
+         
         if not os.path.isfile("./Statistiche/StatisticheGiocatore.csv"):
             df3.to_csv(path_or_buf = "./Statistiche/StatisticheGiocatore.csv", 
                         index = False, 
@@ -54,6 +60,13 @@ def statistiche():
                 index = False,
                 columns = ["Nickname", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
             
+            
+    df3 = df3.sort_values("Score", ascending = False)
+    #bonus5.vincitori(df3)       
+
+    print(df3.head(3))    
+    
+            
 
 
 
@@ -61,6 +74,7 @@ def nicknameCheck():
     while True:
         nickname = input("Inserisci il tuo nickname (solo alfanumerico): ")
         if nickname.isalnum():
+            
             return nickname
         else:
             print("Riprova! Caratteri non validi!")
@@ -119,22 +133,22 @@ def gioco():
             # print(df)
             
             # Se non esiste la cartella 'Statistiche' la creo
-            if not os.path.isdir('Statistiche'):
-                os.mkdir('Statistiche')
+            if not os.path.isdir('Giocatori'):
+                os.mkdir('Giocatori')
                 
-            if not os.path.isfile('Statistiche/'+ nickname + ".csv"):
+            if not os.path.isfile('Giocatori/'+ nickname + ".csv"):
  
                 #Trasformo il DataFrame in un file csv con la data come <nome_file>
-                df.to_csv(path_or_buf = "Statistiche/" + nickname + ".csv",
+                df.to_csv(path_or_buf = "Giocatori/" + nickname + ".csv",
                     index = False,
                     columns = ["Data", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
             else:
-                df1 = pd.read_csv('Statistiche/' + nickname + ".csv")
+                df1 = pd.read_csv('Giocatori/' + nickname + ".csv")
                 # print(f"Primo DF1: {df1 =}")
                 df1 = pd.concat([df, df1])
                 # print(f"Secondo DF1: {df1 =}")
                 
-                df1.to_csv(path_or_buf = "Statistiche/" + nickname + ".csv",
+                df1.to_csv(path_or_buf = "Giocatori/" + nickname + ".csv",
                     index = False,
                     columns = ["Data", 'Vittorie', "Pareggi", "Sconfitte", "Score"])                   
             statistiche()
