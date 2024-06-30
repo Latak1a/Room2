@@ -19,14 +19,14 @@ import os
 # MAIN
 
 def statistiche():
-    
+    df3 = pd.DataFrame()   
     #legge ogni file presente in dir /statistiche
     for element in os.listdir("./Statistiche/"):
         vittorie = 0
         pareggi = 0
         sconfitte = 0
         score = 0
-        df3 = pd.DataFrame()
+        
         if element != "StatisticheGiocatore.csv":
             
             nickname = element.strip(".csv")  
@@ -40,11 +40,21 @@ def statistiche():
                 score += df1.iloc[i]["Score"]
             dictGiocatori = {"Nickname": nickname,"Vittorie": [vittorie], "Pareggi": [pareggi], "Sconfitte": [sconfitte], "Score":  [score]}
             print(dictGiocatori)
-            df2 = pd.DataFrame(data = dictGiocatori)    
-            df3 = pd.concat([df2, df3])
+        df2 = pd.DataFrame(data = dictGiocatori)    
+        df3 = pd.concat([df2, df3])
             
-        print(df2)
-        print(df3)
+        if not os.path.isfile("./Statistiche/StatisticheGiocatore.csv"):
+            df3.to_csv(path_or_buf = "./Statistiche/StatisticheGiocatore.csv", 
+                        index = False, 
+                        columns = ["Nickname", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
+          
+        else:
+            os.remove("./Statistiche/StatisticheGiocatore.csv")                     
+            df3.to_csv(path_or_buf = "./Statistiche/StatisticheGiocatore.csv",
+                index = False,
+                columns = ["Nickname", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
+            
+
 
 
 def nicknameCheck():
