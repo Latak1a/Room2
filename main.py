@@ -20,51 +20,43 @@ import os
 
 def statistiche():
     
-    vittorie = 0
-    pareggi = 0
-    sconfitte = 0
-    score = 0
- #legge ogni file presente in dir /statistiche   
+    #legge ogni file presente in dir /statistiche
     for element in os.listdir("./Statistiche/"):
+        vittorie = 0
+        pareggi = 0
+        sconfitte = 0
+        score = 0
+        df3 = pd.DataFrame()
         if element != "StatisticheGiocatore.csv":
-            nickname = element.strip(".csv")
-            df1 = pd.read_csv("./Statistiche/" + element)
             
-            #per ogni file sommare il totale della colonna vittorie, della colonna pareggi e della colonna sconfitte
+            nickname = element.strip(".csv")  
+            df1 = pd.read_csv("./Statistiche/" + element)
+           
             for i in range(len(df1)):
-                
+            
                 vittorie += df1.iloc[i]["Vittorie"]
                 pareggi += df1.iloc[i]["Pareggi"]
                 sconfitte += df1.iloc[i]["Sconfitte"]
                 score += df1.iloc[i]["Score"]
+            dictGiocatori = {"Nickname": nickname,"Vittorie": [vittorie], "Pareggi": [pareggi], "Sconfitte": [sconfitte], "Score":  [score]}
+            print(dictGiocatori)
+            df2 = pd.DataFrame(data = dictGiocatori)    
+            df3 = pd.concat([df2, df3])
             
-            dictGiocatori = {"Nickname": nickname,"Vittorie": [vittorie], "Pareggi": [pareggi], "Sconfitte": [sconfitte], "Score": [score]}
-                        
-            #Creo il dataframe
-            df2 = pd.DataFrame(data = dictGiocatori)
-                        
-            if not os.path.isdir('Statistiche'):
-                os.mkdir('Statistiche')
-                
-            
-            if not os.path.isfile("./Statistiche/StatisticheGiocatore.csv"):
-                # df3 = pd.read_csv("./Statistiche/StatisticheGiocatore.csv") 
-                # df3 = pd.concat([df2, df3])
-                df2.to_csv(path_or_buf = "./Statistiche/StatisticheGiocatore.csv",
-                    index = False,
+    if not os.path.isfile("./Statistiche/StatisticheGiocatore.csv"):
+        df3.to_csv(path_or_buf = "./Statistiche/StatisticheGiocatore.csv", 
+                    index = False, 
                     columns = ["Nickname", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
-            else:
-                df3 = pd.read_csv("./Statistiche/StatisticheGiocatore.csv") 
-                
-                df3 = pd.concat([df2, df3])
-                #Ordino il dataframe
-                df3 = df3.sort_values(by="Score", ascending = False)
-                
-                
-                df3.to_csv(path_or_buf = "./Statistiche/StatisticheGiocatore.csv",
-                    index = False,
-                    columns = ["Nickname", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
-                
+        print(f"{df3 =}")
+    else:
+        #os.remove("./Statistiche/StatisticheGiocatore.csv")
+        
+        
+        df3.to_csv(path_or_buf = "./Statistiche/StatisticheGiocatore.csv",
+            index = False,
+            columns = ["Nickname", 'Vittorie', "Pareggi", "Sconfitte", "Score"])
+        print(f"{df3 =}")
+
 
 def nicknameCheck():
     while True:
@@ -118,7 +110,7 @@ def gioco():
             dataCorrente = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
             
             #Creo lo score
-            score = vittorie*3 + pareggi + (vittorie-sconfitte)
+            score = (vittorie * 3) + (pareggi) + (vittorie-sconfitte)
             
             #Creo un dizionario per la creazione di un DataFrame
             dictRisultati = {"Data": [dataCorrente],"Vittorie": [vittorie], "Pareggi": [pareggi], "Sconfitte": [sconfitte], "Score": [score]}
