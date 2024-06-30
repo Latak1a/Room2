@@ -16,7 +16,7 @@ import pandas as pd
 import datetime
 import os
 
-# MAIN DISORDINATO
+# MAIN
 
 def statistiche():
     
