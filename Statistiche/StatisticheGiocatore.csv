@@ -1,11 +1,12 @@
 Nickname,Vittorie,Pareggi,Sconfitte,Score
 UNO,0,1,0,1
 TRE,0,0,1,-1
-SETTE,1,0,0,4
-SEI,0,2,0,2
+SETTE,6,3,1,26
+SEI,2,5,1,12
 QUATTRO,0,3,0,3
 OTTO,1,0,0,4
 NOVE,0,1,0,1
 DUE,0,0,1,-1
 DIECI,1,1,0,5
 CINQUE,1,0,1,3
+Ale,0,1,2,-1

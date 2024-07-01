@@ -62,14 +62,11 @@ def statistiche():
             
             
     df3 = df3.sort_values("Score", ascending = False)
-    #bonus5.vincitori(df3)       
+    bonus5.vincitori(df3)       
 
-    print(df3.head(3))    
+    #print(df3.head(3))    
     
             
-
-
-
 def nicknameCheck():
     while True:
         nickname = input("Inserisci il tuo nickname (solo alfanumerico): ")
