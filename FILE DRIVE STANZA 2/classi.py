@@ -49,6 +49,7 @@ class Bambino(Umano):
                          cognome, 
                          tipo = "Bambino", 
                          attrazioniDesiderate = random.sample(["tazze", "bruco", "covo dei pirati"], len(["tazze", "bruco", "covo dei pirati"])))
+    
         
 #Definisco la classe Ragazzo(Umano)
     #elabora lista attrazioniDesiderate["Raptor", "Blue Tornado", "Space Vertigo"]

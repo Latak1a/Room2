@@ -7,8 +7,11 @@ max_ripetizioni = 10
 
 #Funzione che sposti le persone verso la prima attrazione desiderata
 def spostamenti(famiglie, tazze, bruco, covo, raptor, space, blue, numFamiglie, clientiInSospeso, ristoro):
+    for index, elemento in enumerate(famiglie):
+        for k, element in enumerate(famiglie[index]):
+            print(famiglie[k])
     
-    #print(f"La posizione iniziale del bambino è {famiglie[0]["Bambino"]["Posizione Iniziale"]}")
+    #print(f"La posizione iniziale del bambino è {famiglie[0]["Bambino"]}")
     
     #Crea il ciclo for per spostare tutti gli umani alla loro prima attrazione desiderata
     # per bambino

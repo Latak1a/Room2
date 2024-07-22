@@ -54,6 +54,10 @@ def creaFamiglie(numFamiglie, clientiInSospeso: list):
             clientiInSospeso.append(bambino)
             clientiInSospeso.append(ragazzo)
             clientiInSospeso.append(ragazzo2)
-            
-    return clientiInSospeso      
+    for index, element in enumerate(clientiInSospeso):
+        print(f"{clientiInSospeso[index]}")  
+    #print(clientiInSospeso[0:])      
+    return clientiInSospeso  
+
+    
   
