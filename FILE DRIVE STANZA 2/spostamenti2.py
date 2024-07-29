@@ -2,12 +2,13 @@ from clientiServiti import *
 import countdownListaAttesa
 from classi import *
 import countdown
-
+import mostraParco
 
 
 
 #Funzione che sposti le persone verso la prima attrazione desiderata
 def spostamenti(clientiInSospeso, attrazioni, ristoro):
+    mostraParco.mostraParco(attrazioni, clientiInSospeso, ristoro)
     max_ripetizioni = 10
     
     for ripetizioni in range(max_ripetizioni):
@@ -35,7 +36,11 @@ def spostamenti(clientiInSospeso, attrazioni, ristoro):
                                         clientiInSospeso.remove(cliente)
                                         
                                         #Sposta la posizione del cliente
-                                        cliente.posizione = attrazione.posizione
+                                        cliente.posizione[0] = attrazione.posizione[0] + 5
+                                        cliente.posizione[1] = attrazione.posizione[1] + 5
+                                        print(cliente)
+                                        
+                                        
                                         
                                     
                                 else:
@@ -43,7 +48,10 @@ def spostamenti(clientiInSospeso, attrazioni, ristoro):
                                     attrazione.clientiInAttesa.append(cliente)
                                     
                                     #SpOSTARE LA POSIZIONE DEL CLIENTE
-                                    cliente.posizione = attrazione.posizione
+                                    cliente.posizione[0] = attrazione.posizione[0] + 5
+                                    cliente.posizione[1] = attrazione.posizione[1] + 5
+                                    print(cliente)
+                                    
                                     
                                     clientiInSospeso.remove(cliente)
                                     
@@ -74,12 +82,15 @@ def spostamenti(clientiInSospeso, attrazioni, ristoro):
                         ristoro.clientiRistoro.append(cliente)
                         
                         #SOSTARE LA POSIZIONE DEL CLIENTE
-                        cliente.posizione = ristoro.posizione
+                        cliente.posizione[0] = attrazione.posizione[0] + 1
+                        cliente.posizione[1] = attrazione.posizione[1] + 1
+                        print(cliente)
+                       
                         
                 print(attrazione)
-                        
+                    
        
-                 
+        mostraParco.mostraParco(attrazioni, clientiInSospeso, ristoro)         
         print(input("Premi invio per continuare"))                    
 
     
