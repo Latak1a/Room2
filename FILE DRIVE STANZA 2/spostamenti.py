@@ -1,15 +1,13 @@
 from clientiServiti import *
 import countdownListaAttesa
 from classi import *
-max_ripetizioni = 10
+
 
 
 
 #Funzione che sposti le persone verso la prima attrazione desiderata
-def spostamenti(famiglie, tazze, bruco, covo, raptor, space, blue, numFamiglie, clientiInSospeso, ristoro):
-    for index, elemento in enumerate(famiglie):
-        for k, element in enumerate(famiglie[index]):
-            print(famiglie[k])
+def spostamenti(famiglie: list, tazze, bruco, covo, raptor, space, blue, numFamiglie:int, clientiInSospeso:list, ristoro):
+    
     
     #print(f"La posizione iniziale del bambino è {famiglie[0]["Bambino"]}")
     

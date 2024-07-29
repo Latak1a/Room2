@@ -99,7 +99,7 @@ class Attrazione(Location):
     def __init__(self, posizione: Punto_Cartesiano, nome: str, perBambini: bool, capienzaAttuale: int, capienzaMassima: int, tempoAttesa:int = 0):
         super().__init__(posizione, nome)
         self.perBambini = perBambini
-        self.capienzaAttuale = capienzaAttuale
+        self.capienzaAttuale = capienzaMassima
         self.capienzaMassima = capienzaMassima
         self.tempoAttesa = tempoAttesa
         self.clientiServiti: list[Umano] = [] 

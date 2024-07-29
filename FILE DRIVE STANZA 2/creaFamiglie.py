@@ -5,7 +5,7 @@ from classi import *
 lista_cognomi = ["Rossi", "Bianchi", "Verdi", "Ricci", "Ferrari", "Conti", "Galli", "Marini", "Bruno", "Barbieri", "Lombardi", "Moretti", "Romano", "Colombo", "Marchetti", "Gentile", "Caruso", "Villa", "Pellegrini", "Santoro"]
 
 
-def creaFamiglie(numFamiglie, clientiInSospeso: list):
+def creaFamiglie(numFamiglie: int, clientiInSospeso: list):
     
     for i in range(numFamiglie):
         p1 = Punto_Cartesiano(5, 1 + i)
