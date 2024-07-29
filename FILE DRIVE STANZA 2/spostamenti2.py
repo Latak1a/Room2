@@ -8,7 +8,7 @@ import countdown
 
 #Funzione che sposti le persone verso la prima attrazione desiderata
 def spostamenti(clientiInSospeso, attrazioni, ristoro):
-    max_ripetizioni = 3
+    max_ripetizioni = 10
     
     for ripetizioni in range(max_ripetizioni):
         
@@ -34,25 +34,53 @@ def spostamenti(clientiInSospeso, attrazioni, ristoro):
                                         attrazione.capienzaAttuale -= 1
                                         clientiInSospeso.remove(cliente)
                                         
+                                        #Sposta la posizione del cliente
+                                        cliente.posizione = attrazione.posizione
+                                        
                                     
                                 else:
+                                    #GIOSTRA PIENA
                                     attrazione.clientiInAttesa.append(cliente)
+                                    
+                                    #SpOSTARE LA POSIZIONE DEL CLIENTE
+                                    cliente.posizione = attrazione.posizione
+                                    
                                     clientiInSospeso.remove(cliente)
                                     
-                                cliente.attrazioniDesiderate.pop(0)
                                     
-                                print("giostra partita")
-                                clientiInSospeso.append(clientiServiti[0:])
-                                attrazione.clientiServiti = []
+                                    cliente.attrazioniDesiderate.pop(0)
+                                    
+                                    if attrazione.tempoAttesa == 0:
+                                        
+                                        print(f"Inizio giro: {attrazione.nome}")
+                                        print(f"Fine giro: {attrazione.nome}")
+                                        for index, persone in enumerate(attrazione.clientiServiti):
+                                            
+                                            clientiInSospeso.append(attrazione.clientiServiti[index])
+                                            
+                                        attrazione.clientiServiti = []
+                                        attrazione.capienzaAttuale = attrazione.capienzaMassima
+                                        
+                                        while attrazione.capienzaAttuale > 0 and len(attrazione.clientiInAttesa) > 0:
+                                            persona = attrazione.clientiInAttesa.pop(0) # p.s: la funzione pop restituisce ciò che toglie da una lista ;)
+                                            attrazione.clientiServiti.append(persona)
+                                            attrazione.capienzaAttuale -= 1
+                                    else:
+                                        
+                                        attrazione.tempoAttesa -= 1
                                 
                     else:
                         clientiInSospeso.remove(cliente)
                         ristoro.clientiRistoro.append(cliente)
-                
-                #        
+                        
+                        #SOSTARE LA POSIZIONE DEL CLIENTE
+                        cliente.posizione = ristoro.posizione
+                        
+                print(attrazione)
+                        
        
-                    
-    print(input("Premi invio per continuare"))                    
+                 
+        print(input("Premi invio per continuare"))                    
 
     
         

@@ -25,18 +25,18 @@ p8 = Punto_Cartesiano(35, 35)
 ristoro = Ristoro([p8.x, p8.y], "Hot Dog store", 0, 10, [])
 
 #Crea le Attrazioni
-bruco = Attrazione([p2.x, p2.y], "Bruco", True, 4, 4, 5)
-tazze = Attrazione([p3.x, p3.y], "Tazze", True, 4, 4, 5)
-covo = Attrazione([p4.x, p4.y], "Covo", True, 4, 4, 5)
+bruco = Attrazione([p2.x, p2.y], "Bruco", True, 4, 5)
+tazze = Attrazione([p3.x, p3.y], "Tazze", True, 4, 5)
+covo = Attrazione([p4.x, p4.y], "Covo dei pirati", True, 4, 5)
 
-raptor = Attrazione([p5.x, p5.y], "Raptor", False, 4, 4, 5)
-space = Attrazione([p6.x, p6.y], "Space Vertigo", False, 4, 4, 5)
-blue = Attrazione([p7.x, p7.y], "Blue Tornado", False, 4, 4, 5)
+raptor = Attrazione([p5.x, p5.y], "Raptor", False, 4, 5)
+space = Attrazione([p6.x, p6.y], "Space Vertigo", False, 4, 5)
+blue = Attrazione([p7.x, p7.y], "Blue Tornado", False, 4, 5)
 
 attrazioni = [bruco, tazze, covo, raptor, space, blue]
 
 # Dichiaro il numero di famiglie da creare
-numFamiglie = 10
+numFamiglie = 4
 clientiInSospeso = []
 #Definisco la funzione per creare 4 famiglie con nomi e cognomi randomici, inoltre aggiungiamo la possibilità di randomizzare
 #il fatto se le famiglie sono composte da 3 o 4 persone (un ragazzo in più)    

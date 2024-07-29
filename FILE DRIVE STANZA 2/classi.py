@@ -48,7 +48,7 @@ class Bambino(Umano):
                          nome, 
                          cognome, 
                          tipo = "Bambino", 
-                         attrazioniDesiderate = random.sample(["tazze", "bruco", "covo dei pirati"], len(["tazze", "bruco", "covo dei pirati"])))
+                         attrazioniDesiderate = random.sample(["Tazze", "Bruco", "Covo dei pirati"], len(["Tazze", "Bruco", "Covo dei pirati"])))
     
         
 #Definisco la classe Ragazzo(Umano)
@@ -70,7 +70,9 @@ class Adulto(Umano):
                  cognome):
         super().__init__(posizione, 
                          nome, 
-                         cognome, "Adulto", [])
+                         cognome, 
+                         tipo = "Adulto", 
+                         attrazioniDesiderate= random.sample(["Tazze", "Bruco", "Covo dei pirati"], len(["Tazze", "Bruco", "Covo dei pirati"])))
         
 #Definisco la classe Location
 class Location:
@@ -96,7 +98,7 @@ class Ristoro(Location):
         
 #Definisco la classe Attrazione(Location)
 class Attrazione(Location):
-    def __init__(self, posizione: Punto_Cartesiano, nome: str, perBambini: bool, capienzaAttuale: int, capienzaMassima: int, tempoAttesa:int = 0):
+    def __init__(self, posizione: Punto_Cartesiano, nome: str, perBambini: bool, capienzaMassima: int, tempoAttesa:int = 5):
         super().__init__(posizione, nome)
         self.perBambini = perBambini
         self.capienzaAttuale = capienzaMassima
