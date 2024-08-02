@@ -72,7 +72,9 @@ class Adulto(Umano):
                          nome, 
                          cognome, 
                          tipo = "Adulto", 
-                         attrazioniDesiderate= random.sample(["Tazze", "Bruco", "Covo dei pirati"], len(["Tazze", "Bruco", "Covo dei pirati"])))
+                        #  attrazioniDesiderate= random.sample(["Tazze", "Bruco", "Covo dei pirati"], len(["Tazze", "Bruco", "Covo dei pirati"]))
+                         attrazioniDesiderate = []
+                        )
         
 #Definisco la classe Location
 class Location:
