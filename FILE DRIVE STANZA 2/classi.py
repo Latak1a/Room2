@@ -100,7 +100,7 @@ class Ristoro(Location):
         
 #Definisco la classe Attrazione(Location)
 class Attrazione(Location):
-    def __init__(self, posizione: Punto_Cartesiano, nome: str, perBambini: bool, capienzaMassima: int, tempoAttesa:int = 5):
+    def __init__(self, posizione: Punto_Cartesiano, nome: str, perBambini: bool, capienzaMassima: int, tempoAttesa:int = 0):
         super().__init__(posizione, nome)
         self.perBambini = perBambini
         self.capienzaAttuale = capienzaMassima
@@ -110,4 +110,4 @@ class Attrazione(Location):
         self.clientiInAttesa:list[Umano] = []
         
     def __str__(self):
-        return f'Attrazione "{self.nome}" ---> Clienti Serviti: {len(self.clientiServiti)} | Clienti in Attesa: {len(self.clientiInAttesa)}'
+        return f'Attrazione "{self.nome}" --->[T.A.]: {self.tempoAttesa} ---> Clienti Serviti: {len(self.clientiServiti)} | Clienti in Attesa: {len(self.clientiInAttesa)}'

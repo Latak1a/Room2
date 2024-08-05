@@ -3,55 +3,90 @@ import countdownListaAttesa
 from classi import *
 import countdown
 import mostraParco
+import math
+import random
 
+def xy_attesa(attrazione):
+    d = 3
+    angolo = range(0,180, 3)
+    y = attrazione.posizione[1] + d * math.sin(random.randint(angolo))
+    x = attrazione.posizione[0] + d * math.cos(random.randint(angolo))
+    
+    return x, y
 
+def xy_serviti(attrazione):
+    d = 3
+    angolo = range(180,360, 3)
+    y = attrazione.posizione[1] + d * math.sin(random.randint(angolo))
+    x = attrazione.posizione[0] + d * math.cos(random.randint(angolo))
+    
+    return x, y
 
 #Funzione che sposti le persone verso la prima attrazione desiderata
 def spostamenti(clientiInSospeso, attrazioni, ristoro):
-    #mostraParco.mostraParco(attrazioni, clientiInSospeso, ristoro)
-    max_ripetizioni = 10
+    #print(clientiInSospeso)
+    
+    max_ripetizioni = 20
     
     for ripetizione in range(max_ripetizioni):
-        
-        for attrazione in attrazioni:
+        mostraParco.mostraParco(attrazioni, clientiInSospeso, ristoro)
+        for attrazione in attrazioni[:]:
             if attrazione.tempoAttesa == 0:
-                for cliente in attrazioni.clientiServiti[:]:
+                for cliente in attrazione.clientiServiti[:]:
                     attrazione.clientiServiti.remove(cliente)
                     clientiInSospeso.append(cliente)
+                    cliente.posizione[0] = 1
+                    cliente.posizione[1] = 1
                     
                 attrazione.capienzaAttuale = attrazione.capienzaMassima
+                
+        print(f"\n --- Iterazione N.:{ripetizione} PRE CLIENTI IN SOSPESO ---\n")
+        print(f"\n---- ClientiInSospeso: \n{clientiInSospeso}------------\n")
+        
+        for attrazione in attrazioni[:]:
+            print(attrazione)
+        
+        for cliente in clientiInSospeso[:]:
+            if len(cliente.attrazioniDesiderate) > 0:
+                clientiInSospeso.remove(cliente)
+                
+                for attrazione in attrazioni:
+                    if attrazione.nome == cliente.attrazioniDesiderate[0]:
+                
+                        if attrazione.capienzaAttuale > 0:
+                            attrazione.clientiServiti.append(cliente)
+                            attrazione.capienzaAttuale -= 1
+                            cliente.posizione[0], cliente.posizione[1] = xy_serviti(attrazione)
+                            
+                        else:
+                            attrazione.clientiInAttesa.append(cliente)
+                            cliente.posizione[0], cliente.posizione[1] = xy_attesa(attrazione)
+                    
+                cliente.attrazioniDesiderate.pop(0)
+                    
+        for attrazione in attrazioni[:]:
+            if attrazione.tempoAttesa == 0:
                 
                 while attrazione.capienzaAttuale > 0 and len(attrazione.clientiInAttesa) > 0:
                     cliente = attrazione.clientiInAttesa.pop(0) # p.s: la funzione pop restituisce ciò che toglie da una lista ;)
                     attrazione.clientiServiti.append(cliente)
                     attrazione.capienzaAttuale -= 1
+                    cliente.posizione[0], cliente.posizione[1] = xy_serviti(attrazione)
                 
                 if attrazione.capienzaAttuale == 0:
                     attrazione.tempoAttesa = 5
-                else:
-                    attrazione.tempoAttesa -= 1
+            else:
+                attrazione.tempoAttesa -= 1
             
-            
-            for cliente in clientiInSospeso[:]:
-                if len(cliente.attrazioniDesiderate) > 0:
-                    clientiInSospeso.remove(cliente)
-                    
-                    for attrazione in attrazioni:
-                        if attrazione.nome == cliente.attrazioniDesiderate[0]:
-                    
-                            if attrazione.capienzaAttuale > 0:
-                                attrazione.clientiServiti.append(cliente)
-                                attrazione.capienzaAttuale -= 1
-                            else:
-                                attrazione.clientiInAttesa.append(cliente)
-                        
-                    cliente.attrazioniDesiderate.pop(0)
+  
             print(f"Iterazione n. {ripetizione} ---\n")
-            print(f"Clienti in Sospeso: \n{clientiInSospeso} ------------\n")
+            print(f"Clienti in Sospeso: \n{len(clientiInSospeso[:])} ------------\n")
             
+        
         for attrazione in attrazioni:
             print(attrazione)
-            scelta = input(f"Premi invio per passare alla ripetizione n. {ripetizione + 1}: ")
+            
+        #scelta = input(f"Premi invio per passare alla ripetizione n. {ripetizione + 1}: ")
     
             
             

@@ -8,13 +8,13 @@ from classi import *
 import creaFamiglie
 import time
 
-p2 = Punto_Cartesiano(10, 10)
-p3 = Punto_Cartesiano(10, 20)
-p4 = Punto_Cartesiano(10, 30)
-p5 = Punto_Cartesiano(20, 10)
-p6 = Punto_Cartesiano(20, 20)
-p7 = Punto_Cartesiano(20, 30)
-p8 = Punto_Cartesiano(35, 35)
+p2 = Punto_Cartesiano(20, 20)
+p3 = Punto_Cartesiano(20, 30)
+p4 = Punto_Cartesiano(20, 40)
+p5 = Punto_Cartesiano(30, 20)
+p6 = Punto_Cartesiano(30, 30)
+p7 = Punto_Cartesiano(30, 40)
+p8 = Punto_Cartesiano(50, 50)
 
 #Randomizza le attrazioni desiderate degli umani
 #listaAttrazioniBambini, listaAttrazioniRagazzi = randomizza.randomizza_lista()
@@ -23,13 +23,13 @@ p8 = Punto_Cartesiano(35, 35)
 ristoro = Ristoro([p8.x, p8.y], "Hot Dog store", 0, 10, [])
 
 #Crea le Attrazioni
-bruco = Attrazione([p2.x, p2.y], "Bruco", True, 5)
-tazze = Attrazione([p3.x, p3.y], "Tazze", True, 5)
-covo = Attrazione([p4.x, p4.y], "Covo dei pirati", True, 5)
+bruco = Attrazione([p2.x, p2.y], "Bruco", True, capienzaMassima= 5)
+tazze = Attrazione([p3.x, p3.y], "Tazze", True,capienzaMassima= 5)
+covo = Attrazione([p4.x, p4.y], "Covo dei pirati", True, capienzaMassima= 5)
 
-raptor = Attrazione([p5.x, p5.y], "Raptor", False, 5)
-space = Attrazione([p6.x, p6.y], "Space Vertigo", False, 5)
-blue = Attrazione([p7.x, p7.y], "Blue Tornado", False, 5)
+raptor = Attrazione([p5.x, p5.y], "Raptor", False, capienzaMassima= 5)
+space = Attrazione([p6.x, p6.y], "Space Vertigo", False, capienzaMassima= 5)
+blue = Attrazione([p7.x, p7.y], "Blue Tornado", False, capienzaMassima= 5)
 
 attrazioni = [bruco, tazze, covo, raptor, space, blue]
 
