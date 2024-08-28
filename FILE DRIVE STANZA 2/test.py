@@ -1,15 +1,16 @@
-lista = [1,2,3]
-lista2 = []
-for i in range(len(lista)):
-    lista2.append(lista.pop())
+import random
+import math
 
-print(lista2)
+def xy_attesa():
+    d = 3
+    angolo = random.choice(list(range(0,180, 3)))
 
+    x = 20 + d * math.cos(angolo)
+    y = 10 + d * math.sin(angolo)
+    
+    return math.floor(x), math.floor(y)
 
-
-
-
-
+print(xy_attesa())
 
 
 

@@ -19,7 +19,11 @@ def mostraParco(attrazioni, clientiInSospeso, ristoro):
         for cliente in attrazione.clientiServiti[:]:
             axs.scatter(cliente.posizione[0], attrazione.posizione[1], s=30, edgecolors= "Black", facecolors= "Green")
         for cliente in attrazione.clientiInAttesa[:]:   
-            axs.scatter(cliente.posizione[0], attrazione.posizione[1], s=30, edgecolors= "Black", facecolors= "Green")
+            axs.scatter(cliente.posizione[0], attrazione.posizione[1], s=30, edgecolors= "Black", facecolors= "Yellow")
+    
+    for cliente in ristoro.clientiRistoro[:]:
+        axs.scatter(cliente.posizione[0], attrazione.posizione[1], s=30, edgecolors= "Black", facecolors= "Green")
+        
         
     axs.legend()
     plt.show()
